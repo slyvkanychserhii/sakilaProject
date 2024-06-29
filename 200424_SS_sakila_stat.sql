@@ -1,0 +1,32 @@
+
+CREATE DATABASE IF NOT EXISTS 200424_SS_sakila_stat;
+USE 200424_SS_sakila_stat;
+
+
+CREATE TABLE Words (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    word VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE Phrases (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    phrase VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE PhrasesWords (
+    phrase_id INT NOT NULL,
+    word_id INT NOT NULL,
+    PRIMARY KEY (phrase_id, word_id),
+    FOREIGN KEY (phrase_id) REFERENCES Phrases(id) ON DELETE CASCADE,
+    FOREIGN KEY (word_id) REFERENCES Words(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Queries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    phrase_id INT NOT NULL,
+    query_date DATETIME NOT NULL,
+    FOREIGN KEY (phrase_id) REFERENCES Phrases(id) ON DELETE CASCADE
+);
